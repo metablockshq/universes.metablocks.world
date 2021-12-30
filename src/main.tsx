@@ -1,15 +1,54 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { ReactElement, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import { BrowserRouter } from 'react-router-dom'
+import { WalletKitProvider } from '@gokiprotocol/walletkit'
+
+import ReactDOM from 'react-dom'
+
+import CreateUniverse from './views/CreateUniverse'
+import ListUniverses from './views/ListUniverses'
 
 import './main.css'
-import App from './App'
+
+interface HOCTree {
+  children: ReactElement
+}
+
+const combineProviders =
+  (providers: any[]) =>
+    ({ children }: HOCTree) =>
+      providers.reduceRight(
+        (tree: ReactElement, [Component, props]) => (
+          <Component {...props}>{tree}</Component>
+        ),
+        children
+      )
+
+const providers = [
+  [
+    WalletKitProvider,
+    { defaultNetwork: 'devnet', app: { name: 'Meta Blocks Universes' } }
+  ],
+  [BrowserRouter, {}],
+  [Routes, {}]
+]
+
+const Root = combineProviders(providers)
+
+const App = (): ReactElement => {
+  useEffect(() => { }, [])
+
+  return (
+    <Root>
+      <Route path="/" element={<ListUniverses />} />
+      <Route path="/create-universe" element={<CreateUniverse />} />
+    </Root>
+  )
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 )

@@ -10,6 +10,18 @@
     "test": "jest"
   },
   "dependencies": {
+    "@blueprintjs/core": "^3.52.0",
+    "@blueprintjs/popover2": "^0.12.9",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@gokiprotocol/walletkit": "^1.6.2",
+    "@ledgerhq/devices": "^6.20.0",
+    "@saberhq/solana-contrib": "^1.12.9",
+    "@saberhq/token-utils": "^1.12.9",
+    "@saberhq/use-solana": "^1.12.9",
+    "@solana/web3.js": "^1.31.0",
+    "@thi.ng/atom": "^5.1.3",
+    "buffer": "^6.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "6"
