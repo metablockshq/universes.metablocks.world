@@ -12,15 +12,17 @@ import Nav from '../components/Nav'
 import { wireEventValue } from '../utils/func'
 import man from '../img/man.svg'
 import Placard from '../components/Placard'
+import { walletState, createUniverse } from '../domain/wallet'
 
 const ConnectWalletPrompt = () => (
   <Placard imgSrc={man} title={'Connect your wallet to continue'} />
 )
 
 const CreateUniversForm = () => {
-  const [name, setName] = useState()
-  const [description, setDescription] = useState()
-  const [websiteUrl, setWebsiteUrl] = useState()
+  const wallet = useConnectedWallet()
+  const [name, setName] = useState('test')
+  const [description, setDescription] = useState('test-desc')
+  const [websiteUrl, setWebsiteUrl] = useState('https://test.est')
 
   return (
     <div className="w-2/3 lg:w-2/6 mx-auto">
@@ -58,7 +60,15 @@ const CreateUniversForm = () => {
           />
         </FormGroup>
 
-        <Button intent={Intent.PRIMARY}>Create</Button>
+        <Button
+          intent={Intent.PRIMARY}
+          onClick={async (e) => {
+            e.preventDefault()
+            await createUniverse(wallet, name, description, websiteUrl)
+          }}
+        >
+          Create
+        </Button>
       </form>
     </div>
   )

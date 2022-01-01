@@ -41,7 +41,7 @@ export const retractEnd = (str, length) =>
 export const contains = (haystack: string, needle: string): boolean =>
   haystack.indexOf(needle) > -1
 
-export const queryStringToObj = (queryString: string): string =>
+export const queryStringToObj = (queryString: string): object =>
   [...new URLSearchParams(queryString).entries()].reduce((prev, [key, val]) => {
     prev[key] = val
     return prev

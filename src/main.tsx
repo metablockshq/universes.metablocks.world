@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, ReactNode, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { WalletKitProvider } from '@gokiprotocol/walletkit'
@@ -10,17 +10,11 @@ import ListUniverses from './views/ListUniverses'
 
 import './main.css'
 
-interface HOCTree {
-  children: ReactElement
-}
-
 const combineProviders =
-  (providers: any[]) =>
-    ({ children }: HOCTree) =>
+  (providers) =>
+    ({ children }) =>
       providers.reduceRight(
-        (tree: ReactElement, [Component, props]) => (
-          <Component {...props}>{tree}</Component>
-        ),
+        (tree, [Component, props]) => <Component {...props}>{tree}</Component>,
         children
       )
 
