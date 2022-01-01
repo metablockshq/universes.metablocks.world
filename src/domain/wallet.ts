@@ -12,19 +12,18 @@ const walletState = defAtom({})
 // Utils from pl, need to package these
 
 const META_BLOCKS_ADDRESSES = {
-  Universe: new web3.PublicKey('EizZV5DZRxwUwfqtRj8hFgx5eayxA6VDMXyWtkNDmKM9')
+  Universe: new web3.PublicKey('A7ri29J2r8uSuufRFT5XigRzMXYj97qRyJCAxgYW2MCj')
 }
 
 const findUniverseAddress = async (
-  universeAuthority: PublicKey,
-  programID: PublicKey = META_BLOCKS_ADDRESSES.Universe
+  universeAuthority: PublicKey
 ): Promise<[PublicKey, number]> => {
   return await PublicKey.findProgramAddress(
     [
       Buffer.from(utils.bytes.utf8.encode('Universe')),
       universeAuthority.toBytes()
     ],
-    programID
+    META_BLOCKS_ADDRESSES.Universe
   )
 }
 
@@ -60,10 +59,7 @@ const createUniverse = async (
       createUniverseError: null
     }))
 
-    const [universeKey, bump] = await findUniverseAddress(
-      wallet.publicKey,
-      programId
-    )
+    const [universeKey, bump] = await findUniverseAddress(wallet.publicKey)
 
     const tx = await program.rpc.createUniverse(
       bump,
