@@ -1,3 +1,5 @@
+import { InputGroup } from '@blueprintjs/core'
+import { NavbarDivider } from '@blueprintjs/core'
 import {
   Alignment,
   Button,
@@ -45,45 +47,52 @@ function Nav(): ReactElement {
   const { disconnect } = useSolana()
 
   return (
-    <Navbar fixedToTop={true}>
-      <Navbar.Group align={Alignment.LEFT}>
-        <Navbar.Heading className="font-bold">
-          <Link to="/" className="hover:no-underline">
-            ✨ Meta Blocks Universes
-          </Link>
-        </Navbar.Heading>
-      </Navbar.Group>
-      <Navbar.Group align={Alignment.RIGHT}>
-        <Link
-          className={[
-            Classes.BUTTON,
-            Classes.MINIMAL,
-            Classes.ICON + '-new-object',
-            'mr-2'
-          ].join(' ')}
-          to={'/create-universe'}
-        >
-          Create Universe
-        </Link>
-        {!wallet && (
-          <Button
-            intent={Intent.PRIMARY}
-            icon="user"
-            text="Connect wallet"
-            onClick={connect}
+    <div className="pb-8">
+      <Navbar fixedToTop={true}>
+        <Navbar.Group align={Alignment.LEFT}>
+          <Navbar.Heading className="font-bold">
+            <Link to="/" className="hover:no-underline">
+              ✨ Meta Blocks Universes
+            </Link>
+          </Navbar.Heading>
+        </Navbar.Group>
+        <Navbar.Group align={Alignment.RIGHT} className="">
+          <InputGroup
+            className="mr-2"
+            placeholder={'Search for a universe'}
+            leftIcon="search"
           />
-        )}
-        {wallet && (
-          <ConnectedPopover disconnect={disconnect}>
+          <Link
+            className={[
+              Classes.BUTTON,
+              Classes.MINIMAL,
+              Classes.ICON + '-new-object',
+              'mr-2'
+            ].join(' ')}
+            to={'/create-universe'}
+          >
+            Create Universe
+          </Link>
+          {!wallet && (
             <Button
               intent={Intent.PRIMARY}
               icon="user"
-              text={retractMiddle(wallet.publicKey.toString(), 8)}
+              text="Connect wallet"
+              onClick={connect}
             />
-          </ConnectedPopover>
-        )}
-      </Navbar.Group>
-    </Navbar>
+          )}
+          {wallet && (
+            <ConnectedPopover disconnect={disconnect}>
+              <Button
+                intent={Intent.PRIMARY}
+                icon="user"
+                text={retractMiddle(wallet.publicKey.toString(), 8)}
+              />
+            </ConnectedPopover>
+          )}
+        </Navbar.Group>
+      </Navbar>
+    </div>
   )
 }
 

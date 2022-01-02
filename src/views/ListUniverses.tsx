@@ -145,7 +145,7 @@ const ListUniverses = (): ReactElement => {
           body="The Meta Blocks protocol is under active development. This place will soon show a list of all the universes created on Meta Blocks."
         />
       </div>
-      <div className="m-4 grid grid-cols-6 gap-4">
+      <div className="m-4 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {dummyUniverses.map((u) => (
           <UniverseCard key={u.id} {...u} />
         ))}
