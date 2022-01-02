@@ -45,7 +45,7 @@ function Nav(): ReactElement {
   const { disconnect } = useSolana()
 
   return (
-    <Navbar>
+    <Navbar fixedToTop={true}>
       <Navbar.Group align={Alignment.LEFT}>
         <Navbar.Heading className="font-bold">
           <Link to="/" className="hover:no-underline">
