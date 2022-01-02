@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+
 import { random } from './string'
 
 export const useAtom = (atom) => {
@@ -6,7 +7,7 @@ export const useAtom = (atom) => {
   const [state, setState] = atom.deref()
 
   useEffect(() => {
-    atom.addWatch(id, (_, previous, current) => {
+    atom.addWatch(id, (_, _previous, current) => {
       setState(current)
     })
 

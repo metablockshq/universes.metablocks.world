@@ -10,9 +10,10 @@ export const random = () => {
 }
 
 export const isEmail = (email: string): boolean => {
-  // eslint-disable-next-line
+  /* eslint-disable */
   const re =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  /* eslint-enable */
   return re.test(String(email).toLowerCase())
 }
 
@@ -24,10 +25,10 @@ export const retractMiddle = (string: string, maxLength: number): string => {
   if (string.length <= maxLength) return string
   if (maxLength == 1) return string.substring(0, 1) + '...'
 
-  var midpoint = Math.ceil(string.length / 2)
-  var toremove = string.length - maxLength
-  var lstrip = Math.ceil(toremove / 2)
-  var rstrip = toremove - lstrip
+  const midpoint = Math.ceil(string.length / 2)
+  const toremove = string.length - maxLength
+  const lstrip = Math.ceil(toremove / 2)
+  const rstrip = toremove - lstrip
   return (
     string.substring(0, midpoint - lstrip) +
     '...' +

@@ -1,8 +1,8 @@
+import { Program, Provider, utils, web3 } from '@project-serum/anchor'
+import { Connection, PublicKey } from '@solana/web3.js'
 import { defAtom } from '@thi.ng/atom'
-import { PublicKey, Connection } from '@solana/web3.js'
-import { utils, Program, Provider, web3 } from '@project-serum/anchor'
 
-import config from '../config.ts'
+import config from '../config'
 import idl from './meta_blocks.json'
 
 const programId = new PublicKey(idl.metadata.address)
@@ -12,7 +12,7 @@ const walletState = defAtom({})
 // Utils from pl, need to package these
 
 const META_BLOCKS_ADDRESSES = {
-  Universe: new web3.PublicKey('A7ri29J2r8uSuufRFT5XigRzMXYj97qRyJCAxgYW2MCj')
+  Universe: new web3.PublicKey('9pNcm4DmZJgHYynuvhSbZ3m4bqBSKeuXqZ2cCZKbcLJc')
 }
 
 const findUniverseAddress = async (

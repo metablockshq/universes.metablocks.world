@@ -1,22 +1,21 @@
-import React, { ReactElement, ReactNode, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
-import { BrowserRouter } from 'react-router-dom'
-import { WalletKitProvider } from '@gokiprotocol/walletkit'
+import './index.css'
 
+import { WalletKitProvider } from '@gokiprotocol/walletkit'
+import React, { ReactElement } from 'react'
 import ReactDOM from 'react-dom'
+import { Route, Routes } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import CreateUniverse from './views/CreateUniverse'
 import ListUniverses from './views/ListUniverses'
 
-import './main.css'
-
 const combineProviders =
   (providers) =>
-    ({ children }) =>
-      providers.reduceRight(
-        (tree, [Component, props]) => <Component {...props}>{tree}</Component>,
-        children
-      )
+  ({ children }) =>
+    providers.reduceRight(
+      (tree, [Component, props]) => <Component {...props}>{tree}</Component>,
+      children
+    )
 
 const providers = [
   [
@@ -30,8 +29,6 @@ const providers = [
 const Root = combineProviders(providers)
 
 const App = (): ReactElement => {
-  useEffect(() => { }, [])
-
   return (
     <Root>
       <Route path="/" element={<ListUniverses />} />

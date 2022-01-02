@@ -1,18 +1,18 @@
-import React, { ReactElement } from 'react'
-import { Link } from 'react-router-dom'
 import {
-  Navbar,
   Alignment,
   Button,
-  Intent,
   Classes,
+  Intent,
   Menu,
   MenuItem,
+  Navbar,
   Position
 } from '@blueprintjs/core'
 import { Popover2 } from '@blueprintjs/popover2'
 import { useWalletKit } from '@gokiprotocol/walletkit'
 import { useConnectedWallet, useSolana } from '@saberhq/use-solana'
+import React, { ReactElement } from 'react'
+import { Link } from 'react-router-dom'
 
 import { retractMiddle } from '../utils/string'
 

@@ -1,5 +1,3 @@
-import React, { ReactElement, useState } from 'react'
-import { useConnectedWallet, useSolana } from '@saberhq/use-solana'
 import {
   Button,
   FormGroup,
@@ -7,12 +5,14 @@ import {
   Intent,
   TextArea
 } from '@blueprintjs/core'
+import { useConnectedWallet } from '@saberhq/use-solana'
+import React, { ReactElement, useState } from 'react'
 
 import Nav from '../components/Nav'
-import { wireEventValue } from '../utils/func'
-import man from '../img/man.svg'
 import Placard from '../components/Placard'
-import { walletState, createUniverse } from '../domain/wallet'
+import { createUniverse } from '../domain/wallet'
+import man from '../img/man.svg'
+import { wireEventValue } from '../utils/func'
 
 const ConnectWalletPrompt = () => (
   <Placard imgSrc={man} title={'Connect your wallet to continue'} />
