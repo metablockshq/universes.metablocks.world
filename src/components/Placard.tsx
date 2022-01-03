@@ -1,12 +1,12 @@
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 
-interface PlacardProps {
+interface IPlacardProps {
   imgSrc: string
   title: string
   body?: string
 }
 
-const Placard = ({ imgSrc, title, body }: PlacardProps): ReactElement => {
+function Placard({ imgSrc, title, body }: IPlacardProps): ReactElement {
   return (
     <div className="text-center w-full flex content-center flex-col">
       <img className="h-36" src={imgSrc} />

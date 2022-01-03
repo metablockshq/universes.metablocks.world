@@ -16,19 +16,19 @@ interface UniverseCardProps {
   createdAt: Date
 }
 
-const UniverseCard = ({
+function UniverseCard({
   name,
   id,
   thumbnailUrl,
   description,
   numOwners,
-  createdAt
-}: UniverseCardProps): ReactElement => {
+  createdAt,
+}: UniverseCardProps): ReactElement {
   return (
     <Link to={`/universe/${id}`} className="hover:no-underline">
       <Card
         className="flex flex-col mb-4 h-[28rem] justify-between"
-        interactive={true}
+        interactive
       >
         <div>
           <img
@@ -43,15 +43,15 @@ const UniverseCard = ({
         </div>
         <div>
           <Tag
-            minimal={true}
+            minimal
             intent={Intent.SUCCESS}
-            round={true}
+            round
             className="mr-2"
             icon="people"
           >
             {numOwners} owners
           </Tag>
-          <Tag minimal={true} intent={Intent.PRIMARY} round={true} icon="time">
+          <Tag minimal intent={Intent.PRIMARY} round icon="time">
             Created {formatDistanceToNow(createdAt)} ago
           </Tag>
         </div>
@@ -68,7 +68,7 @@ const dummyUniverses: UniverseCardProps[] = [
     thumbnailUrl:
       'https://s2.coinmarketcap.com/static/img/coins/64x64/13632.png',
     numOwners: 789,
-    createdAt: new Date()
+    createdAt: new Date(),
   },
   {
     name: 'Dengen Ape Academy',
@@ -79,7 +79,7 @@ const dummyUniverses: UniverseCardProps[] = [
     thumbnailUrl:
       'https://pbs.twimg.com/profile_images/1420551018685763586/UGfbY4f6_400x400.jpg',
     numOwners: 789,
-    createdAt: new Date()
+    createdAt: new Date(),
   },
   {
     name: 'Genopets',
@@ -88,7 +88,7 @@ const dummyUniverses: UniverseCardProps[] = [
     thumbnailUrl:
       'https://s2.coinmarketcap.com/static/img/coins/64x64/13632.png',
     numOwners: 789,
-    createdAt: new Date()
+    createdAt: new Date(),
   },
   {
     name: 'Dengen Ape Academy',
@@ -99,7 +99,7 @@ const dummyUniverses: UniverseCardProps[] = [
     thumbnailUrl:
       'https://pbs.twimg.com/profile_images/1420551018685763586/UGfbY4f6_400x400.jpg',
     numOwners: 789,
-    createdAt: new Date()
+    createdAt: new Date(),
   },
   {
     name: 'Dengen Ape Academy',
@@ -110,7 +110,7 @@ const dummyUniverses: UniverseCardProps[] = [
     thumbnailUrl:
       'https://pbs.twimg.com/profile_images/1420551018685763586/UGfbY4f6_400x400.jpg',
     numOwners: 789,
-    createdAt: new Date()
+    createdAt: new Date(),
   },
   {
     name: 'Dengen Ape Academy',
@@ -121,7 +121,7 @@ const dummyUniverses: UniverseCardProps[] = [
     thumbnailUrl:
       'https://pbs.twimg.com/profile_images/1420551018685763586/UGfbY4f6_400x400.jpg',
     numOwners: 789,
-    createdAt: new Date()
+    createdAt: new Date(),
   },
   {
     name: 'Genopets',
@@ -130,11 +130,11 @@ const dummyUniverses: UniverseCardProps[] = [
     thumbnailUrl:
       'https://s2.coinmarketcap.com/static/img/coins/64x64/13632.png',
     numOwners: 789,
-    createdAt: new Date()
-  }
+    createdAt: new Date(),
+  },
 ]
 
-const ListUniverses = (): ReactElement => {
+function ListUniverses(): ReactElement {
   return (
     <>
       <Nav />

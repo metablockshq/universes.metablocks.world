@@ -1,6 +1,6 @@
-import { InputGroup } from '@blueprintjs/core'
-import { NavbarDivider } from '@blueprintjs/core'
 import {
+  InputGroup,
+  NavbarDivider,
   Alignment,
   Button,
   Classes,
@@ -8,14 +8,16 @@ import {
   Menu,
   MenuItem,
   Navbar,
-  Position
+  Position,
 } from '@blueprintjs/core'
 import { Popover2 } from '@blueprintjs/popover2'
+import { Select, ItemRenderer } from '@blueprintjs/select'
 import { useWalletKit } from '@gokiprotocol/walletkit'
 import { useConnectedWallet, useSolana } from '@saberhq/use-solana'
-import React, { ReactElement } from 'react'
+import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 
+import { networks } from '../config'
 import { retractMiddle } from '../utils/string'
 
 interface ConnectedPopoverProps {
@@ -25,19 +27,39 @@ interface ConnectedPopoverProps {
 
 function ConnectedPopover({
   children,
-  disconnect
+  disconnect,
 }: ConnectedPopoverProps): ReactElement {
   return (
     <Popover2
       content={
         <Menu>
-          <MenuItem icon="log-out" onClick={disconnect} text="Disconnect" />
+          <MenuItem
+            icon="log-out"
+            onClick={disconnect}
+            text="Disconnect"
+          />
         </Menu>
       }
       position={Position.BOTTOM_RIGHT}
     >
       {children}
     </Popover2>
+  )
+}
+
+const renderNetwork = (network) => {}
+
+function NetworkSelector({}) {
+  return <Select />
+}
+
+function UniverseSearch() {
+  return (
+    <InputGroup
+      className="mr-2"
+      placeholder="Search for a universe"
+      leftIcon="search"
+    />
   )
 }
 
@@ -48,7 +70,7 @@ function Nav(): ReactElement {
 
   return (
     <div className="pb-8">
-      <Navbar fixedToTop={true}>
+      <Navbar fixedToTop>
         <Navbar.Group align={Alignment.LEFT}>
           <Navbar.Heading className="font-bold">
             <Link to="/" className="hover:no-underline">
@@ -57,19 +79,15 @@ function Nav(): ReactElement {
           </Navbar.Heading>
         </Navbar.Group>
         <Navbar.Group align={Alignment.RIGHT} className="">
-          <InputGroup
-            className="mr-2"
-            placeholder={'Search for a universe'}
-            leftIcon="search"
-          />
+          <UniverseSearch />
           <Link
             className={[
               Classes.BUTTON,
               Classes.MINIMAL,
-              Classes.ICON + '-new-object',
-              'mr-2'
+              `${Classes.ICON}-new-object`,
+              'mr-2',
             ].join(' ')}
-            to={'/create-universe'}
+            to="/create-universe"
           >
             Create Universe
           </Link>
@@ -86,6 +104,7 @@ function Nav(): ReactElement {
               <Button
                 intent={Intent.PRIMARY}
                 icon="user"
+                rightIcon="caret-down"
                 text={retractMiddle(wallet.publicKey.toString(), 8)}
               />
             </ConnectedPopover>

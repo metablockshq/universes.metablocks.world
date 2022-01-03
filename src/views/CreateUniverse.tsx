@@ -6,7 +6,7 @@ import {
   TextArea
 } from '@blueprintjs/core'
 import { useConnectedWallet } from '@saberhq/use-solana'
-import React, { ReactElement, useState } from 'react'
+import { ReactElement, useState } from 'react'
 
 import Nav from '../components/Nav'
 import Placard from '../components/Placard'
@@ -14,11 +14,11 @@ import { createUniverse } from '../domain/wallet'
 import man from '../img/man.svg'
 import { wireEventValue } from '../utils/func'
 
-const ConnectWalletPrompt = () => (
-  <Placard imgSrc={man} title={'Connect your wallet to continue'} />
-)
+function ConnectWalletPrompt() {
+  return <Placard imgSrc={man} title="Connect your wallet to continue" />
+}
 
-const CreateUniversForm = () => {
+function CreateUniversForm() {
   const wallet = useConnectedWallet()
   const [name, setName] = useState('test')
   const [description, setDescription] = useState('test-desc')
@@ -46,7 +46,7 @@ const CreateUniversForm = () => {
           helperText="A short intro to your project"
         >
           <TextArea
-            fill={true}
+            fill
             id="description"
             value={description}
             onChange={wireEventValue(setDescription)}
@@ -74,7 +74,7 @@ const CreateUniversForm = () => {
   )
 }
 
-const CreateUniverse = (): ReactElement => {
+function CreateUniverse(): ReactElement {
   const wallet = useConnectedWallet()
 
   return (

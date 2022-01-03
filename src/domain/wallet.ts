@@ -12,29 +12,30 @@ const walletState = defAtom({})
 // Utils from pl, need to package these
 
 const META_BLOCKS_ADDRESSES = {
-  Universe: new web3.PublicKey('9pNcm4DmZJgHYynuvhSbZ3m4bqBSKeuXqZ2cCZKbcLJc')
+  Universe: new web3.PublicKey(
+    '9pNcm4DmZJgHYynuvhSbZ3m4bqBSKeuXqZ2cCZKbcLJc',
+  ),
 }
 
-const findUniverseAddress = async (
-  universeAuthority: PublicKey
-): Promise<[PublicKey, number]> => {
-  return await PublicKey.findProgramAddress(
+const findUniverseAddress = (
+  universeAuthority: PublicKey,
+): Promise<[PublicKey, number]> =>
+  PublicKey.findProgramAddress(
     [
       Buffer.from(utils.bytes.utf8.encode('Universe')),
-      universeAuthority.toBytes()
+      universeAuthority.toBytes(),
     ],
-    META_BLOCKS_ADDRESSES.Universe
+    META_BLOCKS_ADDRESSES.Universe,
   )
-}
 
 const providerFactory = (wallet) => {
   const opts = {
-    preflightCommitment: 'processed'
+    preflightCommitment: 'processed',
   }
 
   const conn = new Connection(
     config.solanaRpcEndpoint,
-    opts.preflightCommitment
+    opts.preflightCommitment,
   )
   return new Provider(conn, wallet, opts.preflightCommitment)
 }
@@ -49,17 +50,19 @@ const createUniverse = async (
   wallet,
   name: string,
   description: string,
-  websiteUrl: string
+  websiteUrl: string,
 ) => {
   const program = metaBlocksProgramFactory(wallet)
   try {
     walletState.swap((current) => ({
       ...current,
       creatingUniverse: true,
-      createUniverseError: null
+      createUniverseError: null,
     }))
 
-    const [universeKey, bump] = await findUniverseAddress(wallet.publicKey)
+    const [universeKey, bump] = await findUniverseAddress(
+      wallet.publicKey,
+    )
 
     const tx = await program.rpc.createUniverse(
       bump,
@@ -71,27 +74,29 @@ const createUniverse = async (
           universe: universeKey,
           payer: wallet.publicKey,
           universeAuthority: wallet.publicKey,
-          systemProgram: web3.SystemProgram.programId
+          systemProgram: web3.SystemProgram.programId,
         },
-        signers: []
-      }
+        signers: [],
+      },
     )
     await tx.confirm()
-    const universeData = await program.account.universe.fetch(universeKey)
+    const universeData = await program.account.universe.fetch(
+      universeKey,
+    )
     walletState.swap((current) => ({
       ...current,
-      createdUniverseData: universeData
+      createdUniverseData: universeData,
     }))
   } catch (error) {
     console.log(error)
     walletState.swap((current) => ({
       ...current,
-      createUniverseError: error
+      createUniverseError: error,
     }))
   } finally {
     walletState.swap((current) => ({
       ...current,
-      creatingUniverse: false
+      creatingUniverse: false,
     }))
   }
 }

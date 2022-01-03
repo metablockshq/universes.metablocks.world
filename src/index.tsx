@@ -1,26 +1,28 @@
 import './index.css'
 
+import { ReactElement } from 'react'
 import { WalletKitProvider } from '@gokiprotocol/walletkit'
-import React, { ReactElement } from 'react'
 import ReactDOM from 'react-dom'
-import { Route, Routes } from 'react-router-dom'
-import { BrowserRouter } from 'react-router-dom'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 
 import CreateUniverse from './views/CreateUniverse'
 import ListUniverses from './views/ListUniverses'
 
 const combineProviders =
   (providers) =>
-  ({ children }) =>
-    providers.reduceRight(
-      (tree, [Component, props]) => <Component {...props}>{tree}</Component>,
-      children
-    )
+    ({ children }) =>
+      providers.reduceRight(
+        (tree, [Component, props]) => <Component {...props}>{tree}</Component>,
+        children
+      )
 
 const providers = [
   [
     WalletKitProvider,
-    { defaultNetwork: 'devnet', app: { name: 'Meta Blocks Universes' } }
+    {
+      defaultNetwork: 'devnet',
+      app: { name: 'Meta Blocks Universes' }
+    }
   ],
   [BrowserRouter, {}],
   [Routes, {}]
@@ -28,7 +30,7 @@ const providers = [
 
 const Root = combineProviders(providers)
 
-const App = (): ReactElement => {
+function App(): ReactElement {
   return (
     <Root>
       <Route path="/" element={<ListUniverses />} />
