@@ -5,28 +5,29 @@ module.exports = {
     presets: [
       [
         '@babel/preset-react',
-        { runtime: 'automatic', importSource: '@emotion/react' }
-      ]
+        { runtime: 'automatic', importSource: '@emotion/react' },
+      ],
     ],
-    plugins: ['@emotion/babel-plugin']
+    plugins: ['@emotion/babel-plugin'],
   },
   eslint: {
-    enable: false
+    enable: false,
   },
+  ignoreWarnings: [/Failed to parse source map/],
   typescript: { enableTypeChecking: false },
   webpack: {
     configure: (config) => {
       config.plugins.unshift(
         new webpack.ProvidePlugin({
-          Buffer: ['buffer', 'Buffer']
-        })
+          Buffer: ['buffer', 'Buffer'],
+        }),
       )
 
       config.module.rules.push({
         test: /\.m?js/,
         resolve: {
-          fullySpecified: false
-        }
+          fullySpecified: false,
+        },
       })
 
       // solana wallet adapter, ledger need to be transpiled
@@ -36,9 +37,9 @@ module.exports = {
         exclude: (file) =>
           !file.includes('@solana/wallet-adapter') &&
           !file.includes('@ledgerhq/devices') &&
-          !file.includes('@saberhq/use-solana')
+          !file.includes('@saberhq/use-solana'),
       })
       return config
-    }
-  }
+    },
+  },
 }

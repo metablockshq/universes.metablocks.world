@@ -53,6 +53,7 @@ const createUniverse = async (
   description: string,
   websiteUrl: string,
 ) => {
+  console.log(name, description, typeof websiteUrl)
   const program = metaBlocksProgramFactory(wallet)
   try {
     walletState.swap((current) => ({
@@ -80,7 +81,8 @@ const createUniverse = async (
         signers: [],
       },
     )
-    await tx.confirm()
+
+    console.log(tx)
 
     const universeData = await program.account.universe.fetch(
       universeKey,

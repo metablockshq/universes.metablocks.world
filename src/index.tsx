@@ -1,6 +1,6 @@
 import './index.css'
 
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { WalletKitProvider } from '@gokiprotocol/walletkit'
 import ReactDOM from 'react-dom'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
@@ -12,8 +12,10 @@ const combineProviders =
   (providers) =>
     ({ children }) =>
       providers.reduceRight(
-        (tree, [Component, props]) => <Component {...props}>{tree}</Component>,
-        children
+        (tree, [Component, props]) => (
+          <Component {...props}>{tree}</Component>
+        ),
+        children,
       )
 
 const providers = [
@@ -21,11 +23,11 @@ const providers = [
     WalletKitProvider,
     {
       defaultNetwork: 'devnet',
-      app: { name: 'Meta Blocks Universes' }
-    }
+      app: { name: 'Meta Blocks Universes' },
+    },
   ],
   [BrowserRouter, {}],
-  [Routes, {}]
+  [Routes, {}],
 ]
 
 const Root = combineProviders(providers)
@@ -43,5 +45,5 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )

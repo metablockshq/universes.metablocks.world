@@ -3,7 +3,7 @@ import {
   FormGroup,
   InputGroup,
   Intent,
-  TextArea
+  TextArea,
 } from '@blueprintjs/core'
 import { useConnectedWallet } from '@saberhq/use-solana'
 import { ReactElement, useState } from 'react'
@@ -15,13 +15,15 @@ import man from '../img/man.svg'
 import { wireEventValue } from '../utils/func'
 
 function ConnectWalletPrompt() {
-  return <Placard imgSrc={man} title="Connect your wallet to continue" />
+  return (
+    <Placard imgSrc={man} title="Connect your wallet to continue" />
+  )
 }
 
 function CreateUniversForm() {
   const wallet = useConnectedWallet()
   const [name, setName] = useState('test')
-  const [description, setDescription] = useState('test-desc')
+  const [description, setDescription] = useState('test')
   const [websiteUrl, setWebsiteUrl] = useState('https://test.est')
 
   return (
@@ -64,7 +66,12 @@ function CreateUniversForm() {
           intent={Intent.PRIMARY}
           onClick={async (e) => {
             e.preventDefault()
-            await createUniverse(wallet, name, description, websiteUrl)
+            await createUniverse(
+              wallet,
+              name,
+              description,
+              websiteUrl,
+            )
           }}
         >
           Create
