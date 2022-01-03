@@ -17,16 +17,17 @@ const META_BLOCKS_ADDRESSES = {
   ),
 }
 
-const findUniverseAddress = (
+const findUniverseAddress = async (
   universeAuthority: PublicKey,
-): Promise<[PublicKey, number]> =>
-  PublicKey.findProgramAddress(
+): Promise<[PublicKey, number]> => {
+  return await PublicKey.findProgramAddress(
     [
       Buffer.from(utils.bytes.utf8.encode('Universe')),
       universeAuthority.toBytes(),
     ],
     META_BLOCKS_ADDRESSES.Universe,
   )
+}
 
 const providerFactory = (wallet) => {
   const opts = {
@@ -80,6 +81,7 @@ const createUniverse = async (
       },
     )
     await tx.confirm()
+
     const universeData = await program.account.universe.fetch(
       universeKey,
     )
