@@ -28,6 +28,7 @@ module.exports = {
         resolve: {
           fullySpecified: false,
         },
+        exclude: /@project-serum/,
       })
 
       // solana wallet adapter, ledger need to be transpiled
