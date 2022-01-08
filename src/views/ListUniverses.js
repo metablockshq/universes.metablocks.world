@@ -13,7 +13,7 @@ import { useAtom } from '../utils/hooks'
 function UniverseCard({ universe }) {
   return (
     <Link
-      to={`/universe/${universe.publicKey}`}
+      to={`/universes/${universe.publicKey}`}
       className="hover:no-underline"
     >
       <Card

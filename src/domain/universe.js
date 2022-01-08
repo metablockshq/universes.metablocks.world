@@ -109,9 +109,14 @@ const useLastCrawledTime = (network) => {
   return useSWR(network.universeLastCrawledUrl)
 }
 
+const universeByPublicKey = (universes, publicKey) => {
+  return universes.find((u) => u.publicKey === publicKey)
+}
+
 export {
   createUniverse,
   useUniverses,
   universeState,
   useLastCrawledTime,
+  universeByPublicKey,
 }

@@ -8,6 +8,7 @@ import { SWRConfig } from 'swr'
 
 import CreateUniverse from './views/CreateUniverse'
 import ListUniverses from './views/ListUniverses'
+import ViewUniverse from './views/ViewUniverse'
 
 const combineProviders =
   (providers) =>
@@ -47,6 +48,10 @@ function App() {
     <Root>
       <Route path="/" element={<ListUniverses />} />
       <Route path="/create-universe" element={<CreateUniverse />} />
+      <Route
+        path="/universes/:publicKey"
+        element={<ViewUniverse />}
+      />
     </Root>
   )
 }

@@ -14,7 +14,6 @@ module.exports = {
     enable: false,
   },
   ignoreWarnings: [/Failed to parse source map/],
-  typescript: { enableTypeChecking: false },
   webpack: {
     configure: (config) => {
       config.plugins.unshift(
@@ -28,7 +27,6 @@ module.exports = {
         resolve: {
           fullySpecified: false,
         },
-        exclude: /@project-serum/,
       })
 
       // solana wallet adapter, ledger need to be transpiled
