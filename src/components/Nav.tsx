@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom'
 
 import { networks } from '../config'
 import { retractMiddle } from '../utils/string'
+import { useAtom } from '../utils/hooks'
+import networkState, { switchNetwork } from '../domain/network'
 
 interface ConnectedPopoverProps {
   children: ReactElement
@@ -47,10 +49,25 @@ function ConnectedPopover({
   )
 }
 
-const renderNetwork = (network) => {}
-
-function NetworkSelector({}) {
-  return <Select />
+function NetworkSelectPopover({ children }) {
+  return (
+    <Popover2
+      content={
+        <Menu>
+          {networks.map((n) => (
+            <MenuItem
+              key={n.id}
+              text={n.label}
+              onClick={() => switchNetwork(n.id)}
+            />
+          ))}
+        </Menu>
+      }
+      position={Position.BOTTOM_RIGHT}
+    >
+      {children}
+    </Popover2>
+  )
 }
 
 function UniverseSearch() {
@@ -68,13 +85,15 @@ function Nav(): ReactElement {
   const wallet = useConnectedWallet()
   const { disconnect } = useSolana()
 
+  const { selectedNetwork } = useAtom(networkState)
+
   return (
     <div className="pb-8">
       <Navbar fixedToTop>
         <Navbar.Group align={Alignment.LEFT}>
           <Navbar.Heading className="font-bold">
             <Link to="/" className="hover:no-underline">
-              ✨ Meta Blocks Universes
+              ✨ Meta Blocks Universes ⍺
             </Link>
           </Navbar.Heading>
         </Navbar.Group>
@@ -99,6 +118,18 @@ function Nav(): ReactElement {
               onClick={connect}
             />
           )}
+          {wallet && (
+            <NetworkSelectPopover>
+              <Button
+                icon="globe-network"
+                minimal={true}
+                className="mr-2"
+                rightIcon="caret-down"
+                text={selectedNetwork.label}
+              />
+            </NetworkSelectPopover>
+          )}
+
           {wallet && (
             <ConnectedPopover disconnect={disconnect}>
               <Button

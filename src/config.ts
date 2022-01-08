@@ -1,24 +1,20 @@
-interface INetwork {
-  rpcEndpoint: string
-  id: 'devnet' | 'mainnet' | 'localnet' | 'testnet'
-  label: 'Devnet' | 'Mainnet' | 'Localnet' | 'Testnet'
-}
-
-export const networks: INetwork[] = [
+export const networks = [
   {
     id: 'devnet',
     rpcEndpoint: 'https://api.devnet.solana.com',
     label: 'Devnet',
+    universeIndexUrl:
+      'https://universe-index.metablocks.world/universe.devnet.json',
+    universeLastCrawledUrl:
+      'https://universe-index.metablocks.world/last.crawled.devnet.json',
   },
   {
     id: 'mainnet',
     rpcEndpoint: 'https://api.solana.com',
     label: 'Mainnet',
+    universeIndexUrl:
+      'https://universe-index.metablocks.world/universe.mainnet.json',
+    universeLastCrawledUrl:
+      'https://universe-index.metablocks.world/last.crawled.mainnet.json',
   },
 ]
-
-const dev = {
-  solanaRpcEndpoint: 'https://api.devnet.solana.com',
-}
-
-export default dev

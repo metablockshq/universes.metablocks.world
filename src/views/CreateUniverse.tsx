@@ -10,7 +10,7 @@ import { ReactElement, useState } from 'react'
 
 import Nav from '../components/Nav'
 import Placard from '../components/Placard'
-import { createUniverse } from '../domain/wallet'
+import { createUniverse } from '../domain/universe'
 import man from '../img/man.svg'
 import { wireEventValue } from '../utils/func'
 

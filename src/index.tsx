@@ -4,15 +4,16 @@ import React, { ReactElement } from 'react'
 import { WalletKitProvider } from '@gokiprotocol/walletkit'
 import ReactDOM from 'react-dom'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import { SWRConfig } from 'swr'
 
 import CreateUniverse from './views/CreateUniverse'
 import ListUniverses from './views/ListUniverses'
 
 const combineProviders =
-  (providers) =>
+  (providers: []) =>
     ({ children }) =>
       providers.reduceRight(
-        (tree, [Component, props]) => (
+        (tree, [Component, props]): ReactElement => (
           <Component {...props}>{tree}</Component>
         ),
         children,
@@ -24,6 +25,15 @@ const providers = [
     {
       defaultNetwork: 'devnet',
       app: { name: 'Meta Blocks Universes' },
+    },
+  ],
+  [
+    SWRConfig,
+    {
+      value: {
+        fetcher: (...args: []) =>
+          fetch(...args).then((res) => res.json()),
+      },
     },
   ],
   [BrowserRouter, {}],
