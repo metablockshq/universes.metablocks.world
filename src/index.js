@@ -1,6 +1,6 @@
 import './index.css'
 
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { WalletKitProvider } from '@gokiprotocol/walletkit'
 import ReactDOM from 'react-dom'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
@@ -10,14 +10,14 @@ import CreateUniverse from './views/CreateUniverse'
 import ListUniverses from './views/ListUniverses'
 
 const combineProviders =
-  (providers: []) =>
-    ({ children }) =>
-      providers.reduceRight(
-        (tree, [Component, props]): ReactElement => (
-          <Component {...props}>{tree}</Component>
-        ),
-        children,
-      )
+  (providers) =>
+  ({ children }) =>
+    providers.reduceRight(
+      (tree, [Component, props]) => (
+        <Component {...props}>{tree}</Component>
+      ),
+      children,
+    )
 
 const providers = [
   [
@@ -31,7 +31,7 @@ const providers = [
     SWRConfig,
     {
       value: {
-        fetcher: (...args: []) =>
+        fetcher: (...args) =>
           fetch(...args).then((res) => res.json()),
       },
     },
@@ -42,7 +42,7 @@ const providers = [
 
 const Root = combineProviders(providers)
 
-function App(): ReactElement {
+function App() {
   return (
     <Root>
       <Route path="/" element={<ListUniverses />} />

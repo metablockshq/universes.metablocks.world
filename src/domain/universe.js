@@ -18,9 +18,7 @@ const META_BLOCKS_ADDRESSES = {
   ),
 }
 
-const findUniverseAddress = async (
-  universeAuthority: PublicKey,
-): Promise<[PublicKey, number]> => {
+const findUniverseAddress = async (universeAuthority) => {
   return await PublicKey.findProgramAddress(
     [
       Buffer.from(utils.bytes.utf8.encode('Universe')),
@@ -36,7 +34,7 @@ const providerFactory = (wallet) => {
   }
 
   const conn = new Connection(
-    config.solanaRpcEndpoint,
+    networkState.deref().selectedNetwork.rpcEndpoint,
     opts.preflightCommitment,
   )
   return new Provider(conn, wallet, opts.preflightCommitment)
@@ -50,13 +48,13 @@ const metaBlocksProgramFactory = (wallet) => {
 
 const createUniverse = async (
   wallet,
-  name: string,
-  description: string,
-  websiteUrl: string,
+  name,
+  description,
+  websiteUrl,
 ) => {
   const program = metaBlocksProgramFactory(wallet)
   try {
-    walletState.swap((current) => ({
+    universeState.swap((current) => ({
       ...current,
       creatingUniverse: true,
       createUniverseError: null,
@@ -85,18 +83,18 @@ const createUniverse = async (
     const universeData = await program.account.universe.fetch(
       universeKey,
     )
-    walletState.swap((current) => ({
+    universeState.swap((current) => ({
       ...current,
       createdUniverseData: universeData,
     }))
   } catch (error) {
     console.log(error)
-    walletState.swap((current) => ({
+    universeState.swap((current) => ({
       ...current,
       createUniverseError: error,
     }))
   } finally {
-    walletState.swap((current) => ({
+    universeState.swap((current) => ({
       ...current,
       creatingUniverse: false,
     }))
