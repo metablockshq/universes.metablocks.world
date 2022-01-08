@@ -6,7 +6,7 @@ import {
   TextArea,
 } from '@blueprintjs/core'
 import { useConnectedWallet } from '@saberhq/use-solana'
-import { ReactElement, useState } from 'react'
+import { useState } from 'react'
 
 import Nav from '../components/Nav'
 import Placard from '../components/Placard'
@@ -22,9 +22,9 @@ function ConnectWalletPrompt() {
 
 function CreateUniversForm() {
   const wallet = useConnectedWallet()
-  const [name, setName] = useState('test')
-  const [description, setDescription] = useState('test')
-  const [websiteUrl, setWebsiteUrl] = useState('https://test.est')
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [websiteUrl, setWebsiteUrl] = useState('')
 
   return (
     <div className="w-2/3 lg:w-2/6 mx-auto">
@@ -81,7 +81,7 @@ function CreateUniversForm() {
   )
 }
 
-function CreateUniverse(): ReactElement {
+function CreateUniverse() {
   const wallet = useConnectedWallet()
 
   return (

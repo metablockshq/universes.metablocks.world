@@ -22,15 +22,7 @@ import { retractMiddle } from '../utils/string'
 import { useAtom } from '../utils/hooks'
 import networkState, { switchNetwork } from '../domain/network'
 
-interface ConnectedPopoverProps {
-  children: ReactElement
-  disconnect: () => void
-}
-
-function ConnectedPopover({
-  children,
-  disconnect,
-}: ConnectedPopoverProps): ReactElement {
+function ConnectedPopover({ children, disconnect }) {
   return (
     <Popover2
       content={

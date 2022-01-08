@@ -1,12 +1,6 @@
 import { ReactElement } from 'react'
 
-interface IPlacardProps {
-  imgSrc: string
-  title: string
-  body?: string
-}
-
-function Placard({ imgSrc, title, body }: IPlacardProps): ReactElement {
+function Placard({ imgSrc, title, body }) {
   return (
     <div className="text-center w-full flex content-center flex-col">
       <img className="h-36" src={imgSrc} />
