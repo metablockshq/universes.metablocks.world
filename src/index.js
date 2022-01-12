@@ -9,6 +9,9 @@ import { SWRConfig } from 'swr'
 import CreateUniverse from './views/CreateUniverse'
 import ListUniverses from './views/ListUniverses'
 import ViewUniverse from './views/ViewUniverse'
+import Tara from './views/Tara'
+import TaraIntro from './views/tara/Intro'
+import TaraViewNfts from './views/tara/ViewNfts'
 
 const combineProviders =
   (providers) =>
@@ -52,6 +55,12 @@ function App() {
         path="/universes/:publicKey"
         element={<ViewUniverse />}
       />
+      <Route path="/tara" element={<Tara />}>
+        <Route path="" element={<TaraIntro />} />
+        <Route path="view-nfts" element={<TaraViewNfts />} />
+        <Route path="deposit-nft" element={<TaraIntro />} />
+        <Route path="withdraw-nft" element={<TaraIntro />} />
+      </Route>
     </Root>
   )
 }

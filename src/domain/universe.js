@@ -3,48 +3,14 @@ import { Connection, PublicKey } from '@solana/web3.js'
 import { defAtom } from '@thi.ng/atom'
 import useSWR from 'swr'
 
-import idl from './meta_blocks.json'
+import {
+  findUniverseAddress,
+  getMetaBlocksProgram,
+} from '../utils/solana'
+
 import networkState from './network'
 
-const programId = new PublicKey(idl.metadata.address)
-
 const universeState = defAtom({})
-
-// Utils from pl, need to package these
-
-const META_BLOCKS_ADDRESSES = {
-  Universe: new web3.PublicKey(
-    '9pNcm4DmZJgHYynuvhSbZ3m4bqBSKeuXqZ2cCZKbcLJc',
-  ),
-}
-
-const findUniverseAddress = async (universeAuthority) => {
-  return await PublicKey.findProgramAddress(
-    [
-      Buffer.from(utils.bytes.utf8.encode('Universe')),
-      universeAuthority.toBytes(),
-    ],
-    META_BLOCKS_ADDRESSES.Universe,
-  )
-}
-
-const providerFactory = (wallet) => {
-  const opts = {
-    preflightCommitment: 'processed',
-  }
-
-  const conn = new Connection(
-    networkState.deref().selectedNetwork.rpcEndpoint,
-    opts.preflightCommitment,
-  )
-  return new Provider(conn, wallet, opts.preflightCommitment)
-}
-
-const metaBlocksProgramFactory = (wallet) => {
-  const provider = providerFactory(wallet)
-  const program = new Program(idl, programId, provider)
-  return program
-}
 
 const createUniverse = async (
   wallet,
@@ -52,7 +18,7 @@ const createUniverse = async (
   description,
   websiteUrl,
 ) => {
-  const program = metaBlocksProgramFactory(wallet)
+  const program = getMetaBlocksProgram(wallet)
   try {
     universeState.swap((current) => ({
       ...current,

@@ -91,6 +91,19 @@ function Nav(): ReactElement {
         </Navbar.Group>
         <Navbar.Group align={Alignment.RIGHT} className="">
           <UniverseSearch />
+
+          <Link
+            className={[
+              Classes.BUTTON,
+              Classes.MINIMAL,
+              `${Classes.ICON}-star`,
+              'mr-2',
+            ].join(' ')}
+            to="/tara"
+          >
+            Integration Demo
+          </Link>
+
           <Link
             className={[
               Classes.BUTTON,
@@ -102,6 +115,17 @@ function Nav(): ReactElement {
           >
             Create Universe
           </Link>
+
+          <NetworkSelectPopover>
+            <Button
+              icon="globe-network"
+              minimal={true}
+              className="mr-2"
+              rightIcon="caret-down"
+              text={selectedNetwork.label}
+            />
+          </NetworkSelectPopover>
+
           {!wallet && (
             <Button
               intent={Intent.PRIMARY}
@@ -109,17 +133,6 @@ function Nav(): ReactElement {
               text="Connect wallet"
               onClick={connect}
             />
-          )}
-          {wallet && (
-            <NetworkSelectPopover>
-              <Button
-                icon="globe-network"
-                minimal={true}
-                className="mr-2"
-                rightIcon="caret-down"
-                text={selectedNetwork.label}
-              />
-            </NetworkSelectPopover>
           )}
 
           {wallet && (
