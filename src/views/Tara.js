@@ -60,7 +60,7 @@ function Tara() {
   return (
     <>
       <Nav />
-      <div className={`mt-8 px-4 ${Classes.TABS}`}>
+      <div className={`mt-8 px-4`}>
         <TaraNav />
 
         <Outlet />

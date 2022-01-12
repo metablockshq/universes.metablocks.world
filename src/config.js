@@ -1,4 +1,4 @@
-export const networks = [
+const networks = [
   {
     id: 'devnet',
     rpcEndpoint: 'https://api.devnet.solana.com',
@@ -18,3 +18,8 @@ export const networks = [
       'https://universe-index.metablocks.world/last.crawled.mainnet.json',
   },
 ]
+
+const publicKeys = {
+  spl: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+}
+export { networks, publicKeys }

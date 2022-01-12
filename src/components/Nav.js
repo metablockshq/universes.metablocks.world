@@ -12,8 +12,11 @@ import {
 } from '@blueprintjs/core'
 import { Popover2 } from '@blueprintjs/popover2'
 import { Select, ItemRenderer } from '@blueprintjs/select'
-import { useWalletKit } from '@gokiprotocol/walletkit'
-import { useConnectedWallet, useSolana } from '@saberhq/use-solana'
+import {
+  useConnectedWallet,
+  useSolana,
+  useWalletKit,
+} from '@gokiprotocol/walletkit'
 import { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
 

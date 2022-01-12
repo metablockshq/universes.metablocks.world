@@ -5,7 +5,7 @@ import {
   Intent,
   TextArea,
 } from '@blueprintjs/core'
-import { useConnectedWallet } from '@saberhq/use-solana'
+import { useConnectedWallet } from '@gokiprotocol/walletkit'
 import { useState } from 'react'
 
 import Nav from '../components/Nav'

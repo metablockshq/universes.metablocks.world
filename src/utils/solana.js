@@ -5,6 +5,7 @@ import networkState from '../domain/network.js'
 
 const programId = new PublicKey(idl.metadata.address)
 
+// get a solana/web3.js connection object with the network selected in networkState
 const getConnection = () => {
   const opts = {
     preflightCommitment: 'processed',

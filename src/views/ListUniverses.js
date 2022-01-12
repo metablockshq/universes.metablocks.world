@@ -10,7 +10,7 @@ import { useUniverses, useLastCrawledTime } from '../domain/universe'
 import networkState from '../domain/network'
 import { useAtom } from '../utils/hooks'
 
-function UniverseCard({ universe }) {
+const UniverseCard = ({ universe }) => {
   return (
     <Link
       to={`/universes/${universe.publicKey}`}
