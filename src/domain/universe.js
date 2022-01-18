@@ -90,16 +90,12 @@ const depositNft = async (wallet, metadata) => {
   const mintKey = new PublicKey(mint)
   const updateAuthorityKey = new PublicKey(updateAuthority)
 
-  console.log(1, mintKey, updateAuthorityKey)
-
   // userNftKey is the wrapper account for the vault where the NFT is stored rn
   // bump is needed for validation
   const [userNftKey, userNftBump] = await findUserNftAddress(
     updateAuthorityKey,
     mintKey,
   )
-
-  console.log(2, userNftKey, userNftBump)
 
   // const universeKey = account of the universe in question
   const universeKey = new PublicKey(
@@ -113,15 +109,34 @@ const depositNft = async (wallet, metadata) => {
     mintKey,
   )
 
-  console.log(3, vaultKey, vaultBump)
-
   // vaultAssociatedKey is the public key of the (escrow) account that actually stores the nft
   const [vaultAssociatedKey, vaultAssociatedBump] =
     await findAssociatedAddressForKey(vaultKey, mintKey)
 
-  console.log(4, vaultAssociatedKey, vaultAssociatedBump)
+  //
+  const [userAssociatedNftKey, _] =
+    await PublicKey.findProgramAddress(
+      [
+        wallet.publicKey.toBuffer(),
+        new PublicKey(programIds.spl).toBuffer(),
+        mintKey.toBuffer(),
+      ],
+      new PublicKey(programIds.associatedToken),
+    )
 
   const program = getMetaBlocksProgram(wallet)
+
+  console.log({
+    userNftKey: userNftKey.toString(),
+    userNftBump,
+    vaultKey: vaultKey.toString(),
+    vaultBump,
+    vaultAssociatedKey: vaultAssociatedKey.toString(),
+    vaultAssociatedBump,
+    mint,
+    userAssociatedNft: userAssociatedNftKey.toString(),
+    universeKey: universeKey.toString(),
+  })
 
   program.rpc
     .depositNft(userNftBump, vaultBump, vaultAssociatedBump, {
@@ -130,12 +145,14 @@ const depositNft = async (wallet, metadata) => {
         vaultAuthority: vaultKey,
         authority: wallet.publicKey,
         universe: universeKey,
-        userAssociatedNft: metadata.pubkey,
+        userAssociatedNft: userAssociatedNftKey,
         vaultAssociatedNft: vaultAssociatedKey,
-        tokenMint: mint,
+        tokenMint: mintKey,
         payer: wallet.publicKey,
-        tokenProgram: programIds.spl,
-        associatedTokenProgram: programIds.associatedToken,
+        tokenProgram: new PublicKey(programIds.spl),
+        associatedTokenProgram: new PublicKey(
+          programIds.associatedToken,
+        ),
         systemProgram: web3.SystemProgram.programId,
         rent: web3.SYSVAR_RENT_PUBKEY,
       },
