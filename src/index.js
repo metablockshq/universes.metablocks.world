@@ -58,8 +58,6 @@ function App() {
       <Route path="/tara" element={<Tara />}>
         <Route path="" element={<TaraIntro />} />
         <Route path="view-nfts" element={<TaraViewNfts />} />
-        <Route path="deposit-nft" element={<TaraIntro />} />
-        <Route path="withdraw-nft" element={<TaraIntro />} />
       </Route>
     </Root>
   )

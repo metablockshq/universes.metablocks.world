@@ -10,7 +10,7 @@ import {
 
 import networkState from './network'
 
-const universeState = defAtom({})
+const state = defAtom({})
 
 const createUniverse = async (
   wallet,
@@ -20,7 +20,7 @@ const createUniverse = async (
 ) => {
   const program = getMetaBlocksProgram(wallet)
   try {
-    universeState.swap((current) => ({
+    state.swap((current) => ({
       ...current,
       creatingUniverse: true,
       createUniverseError: null,
@@ -49,40 +49,71 @@ const createUniverse = async (
     const universeData = await program.account.universe.fetch(
       universeKey,
     )
-    universeState.swap((current) => ({
+    state.swap((current) => ({
       ...current,
       createdUniverseData: universeData,
     }))
   } catch (error) {
     console.log(error)
-    universeState.swap((current) => ({
+    state.swap((current) => ({
       ...current,
       createUniverseError: error,
     }))
   } finally {
-    universeState.swap((current) => ({
+    state.swap((current) => ({
       ...current,
       creatingUniverse: false,
     }))
   }
 }
 
+// TODO: convert this to useResource hook
 const useUniverses = (network) => {
   return useSWR(network.universeIndexUrl)
 }
 
+// TODO: convert this to useResource hook
 const useLastCrawledTime = (network) => {
   return useSWR(network.universeLastCrawledUrl)
 }
 
+// TODO: convert this to useResource hook
 const universeByPublicKey = (universes, publicKey) => {
   return universes.find((u) => u.publicKey === publicKey)
 }
 
+const depositNFT = async (wallet, metadata) => {
+  // deposit one at a time?
+  state.resetIn('depositingNFT', true)
+  /* await program.rpc.depositNft(
+   *   nftWrapper.userNftBump,
+   *   nftWrapper.vaultBump,
+   *   nftWrapper.vaultAssociatedBump,
+   *   new anchor.BN(index),
+   *   {
+   *     accounts: {
+   *       userNft: nftWrapper.userNftAccountKey,
+   *       vaultAuthority: nftWrapper.vaultAccountKey,
+   *       authority: fakeUserAuthority.publicKey,
+   *       universe: nftWrapper.universeAccountKey,
+   *       userAssociatedNft: nftWrapper.userAssociatedAccount,
+   *       vaultAssociatedNft: nftWrapper.vaultAssociatedAccount,
+   *       tokenMint: nftWrapper.mintKey,
+   *       payer: fakeUserAuthority.publicKey,
+   *       tokenProgram: TOKEN_PROGRAM_ID,
+   *       associatedTokenProgram: ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID,
+   *       systemProgram: anchor.web3.SystemProgram.programId,
+   *       rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+   *     },
+   *     signers: [fakeUserAuthority],
+   *   },
+   * ) */
+}
+
+export default state
 export {
   createUniverse,
   useUniverses,
-  universeState,
   useLastCrawledTime,
   universeByPublicKey,
 }

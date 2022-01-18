@@ -1,6 +1,12 @@
 import { useConnectedWallet } from '@gokiprotocol/walletkit'
 import { useEffect, useState } from 'react'
-import { ProgressBar, Card } from '@blueprintjs/core'
+import {
+  Intent,
+  Button,
+  ProgressBar,
+  Card,
+  Tag,
+} from '@blueprintjs/core'
 
 import { useAtom, useResource } from '../../utils/hooks'
 import { scale } from '../../utils/number'
@@ -101,20 +107,44 @@ const MetadataCard = ({ metadata }) => {
   const { data, error, isLoading } = useResource(uri)
   return (
     <Card
-      className="flex flex-col mb-4 items-center justify-between"
-      interactive
+      className="flex flex-col mb-4 justify-between p-0"
+      interactive={false}
     >
-      <div>
+      {!isLoading && (
+        <img
+          alt={`${name} - thumbnail image`}
+          className="rounded"
+          src={data.image}
+        />
+      )}
+      <div className="mt-2 bg-slate-200">
+        <h5 className="text-lg text-black bg-slate-100 py-2 px-4">
+          {name}
+        </h5>
         {!isLoading && (
-          <img
-            alt={`${name} - thumbnail image`}
-            className="rounded"
-            src={data.image}
-          />
+          <div className="p-4">
+            <p className="text-gray-600">{data.description}</p>
+            <div className="mt-2 flex flex-wrap justify-start">
+              <Tag minimal round icon="dollar" className="mr-2 mt-2">
+                {data.symbol}
+              </Tag>
+              {data.attributes.map((a) => (
+                <Tag
+                  key={a.trait_type}
+                  icon="tag"
+                  minimal
+                  round
+                  className="mt-2 mr-2"
+                >
+                  {a.trait_type}: {a.value}
+                </Tag>
+              ))}
+            </div>
+          </div>
         )}
-        <div className="mt-2">
-          <h5 className="text-xl text-center text-black">{name}</h5>
-          {isLoading && <div>Loading ...</div>}
+        {isLoading && <div>Loading ...</div>}
+        <div className="px-4 pb-4">
+          <Button fill intent={Intent.PRIMARY} text="Deposit" />
         </div>
       </div>
     </Card>

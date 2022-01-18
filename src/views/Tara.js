@@ -23,18 +23,6 @@ const tabLinks = [
     to: '/tara/view-nfts',
     icon: '',
   },
-  {
-    id: 'deposit',
-    label: 'Deposit NFT',
-    to: '/tara/deposit-nft',
-    icon: '',
-  },
-  {
-    id: 'withdraw',
-    label: 'Withdraw NFT',
-    to: '/tara/withdraw-nft',
-    icon: '',
-  },
 ]
 
 function TaraNav() {
