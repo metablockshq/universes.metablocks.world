@@ -267,3 +267,5 @@ dist
 
 build/
 dist/
+
+.#*

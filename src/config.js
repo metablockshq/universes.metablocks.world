@@ -19,7 +19,13 @@ const networks = [
   },
 ]
 
-const publicKeys = {
+// this might need a network specific version
+const programIds = {
+  // TODO: rename spl to token something
   spl: 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA',
+  associatedToken: 'ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL',
+  metaBlocks: '9pNcm4DmZJgHYynuvhSbZ3m4bqBSKeuXqZ2cCZKbcLJc',
+  metaplex: 'p1exdMJcjVao65QdewkaZRUnU6VPSXhus9n2GzWfh98',
 }
-export { networks, publicKeys }
+
+export { networks, programIds }

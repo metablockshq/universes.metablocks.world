@@ -46,26 +46,11 @@
       ]
     },
     {
-      "name": "createUserStore",
+      "name": "updateUniverse",
       "accounts": [
         {
-          "name": "userStore",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "storeAuthority",
-          "isMut": false,
-          "isSigner": true
-        },
-        {
           "name": "universe",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "universeAuthority",
-          "isMut": false,
+          "isMut": true,
           "isSigner": false
         },
         {
@@ -74,41 +59,11 @@
           "isSigner": true
         },
         {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "bump",
-          "type": "u8"
-        },
-        {
-          "name": "index",
-          "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "addIndexUserStore",
-      "accounts": [
-        {
-          "name": "userStore",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "auth",
+          "name": "universeAuthority",
           "isMut": false,
           "isSigner": true
         },
         {
-          "name": "universe",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "systemProgram",
           "isMut": false,
           "isSigner": false
@@ -116,39 +71,10 @@
       ],
       "args": [
         {
-          "name": "index",
-          "type": "u64"
-        }
-      ]
-    },
-    {
-      "name": "subIndexUserStore",
-      "accounts": [
-        {
-          "name": "userStore",
-          "isMut": true,
-          "isSigner": false
-        },
-        {
-          "name": "auth",
-          "isMut": false,
-          "isSigner": true
-        },
-        {
-          "name": "universe",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
-          "name": "systemProgram",
-          "isMut": false,
-          "isSigner": false
-        }
-      ],
-      "args": [
-        {
-          "name": "index",
-          "type": "u64"
+          "name": "args",
+          "type": {
+            "defined": "UpdateUniverseArgs"
+          }
         }
       ]
     },
@@ -228,10 +154,6 @@
         {
           "name": "associatedBump",
           "type": "u8"
-        },
-        {
-          "name": "index",
-          "type": "u64"
         }
       ]
     },
@@ -307,10 +229,6 @@
         {
           "name": "vaultBump",
           "type": "u8"
-        },
-        {
-          "name": "index",
-          "type": "u64"
         }
       ]
     }
@@ -383,25 +301,25 @@
       }
     },
     {
-      "name": "UserStore",
+      "name": "UpdateUniverseArgs",
       "type": {
         "kind": "struct",
         "fields": [
           {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "websiteUrl",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
             "name": "bump",
             "type": "u8"
-          },
-          {
-            "name": "index",
-            "type": "u64"
-          },
-          {
-            "name": "authority",
-            "type": "publicKey"
-          },
-          {
-            "name": "universe",
-            "type": "publicKey"
           }
         ]
       }
@@ -449,6 +367,11 @@
       "code": 6003,
       "name": "Unauthorized",
       "msg": "Unauthorized to access this instruction"
+    },
+    {
+      "code": 6004,
+      "name": "InvalidIndex",
+      "msg": "Invalid index passed, It is less than MIN"
     }
   ],
   "metadata": {

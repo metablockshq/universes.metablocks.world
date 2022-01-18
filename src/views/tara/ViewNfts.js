@@ -1,22 +1,20 @@
-import { useConnectedWallet } from '@gokiprotocol/walletkit'
-import { useEffect, useState } from 'react'
 import {
-  Intent,
   Button,
-  ProgressBar,
   Card,
+  Intent,
+  ProgressBar,
   Tag,
 } from '@blueprintjs/core'
-
-import { useAtom, useResource } from '../../utils/hooks'
-import { scale } from '../../utils/number'
-import { getConnection } from '../../utils/solana'
-
+import { useConnectedWallet } from '@gokiprotocol/walletkit'
+import { useEffect, useState } from 'react'
 import tokenState, {
+  filterEmptyProgramAccounts,
   getMetadataFromMint,
   getParsedProgramAccounts,
-  filterEmptyProgramAccounts,
 } from '../../domain/token'
+import universeState, { depositNft } from '../../domain/universe'
+import { useAtom, useResource } from '../../utils/hooks'
+import { scale } from '../../utils/number'
 
 const computeLoadingState = ({
   positiveBalanceProgramAccounts,
@@ -105,6 +103,9 @@ const Progress = ({ positiveBalanceProgramAccounts }) => {
 const MetadataCard = ({ metadata }) => {
   const { name, uri } = metadata.data.data
   const { data, error, isLoading } = useResource(uri)
+  const { depositingNft } = useAtom(universeState)
+
+  const wallet = useConnectedWallet()
   return (
     <Card
       className="flex flex-col mb-4 justify-between p-0"
@@ -144,7 +145,13 @@ const MetadataCard = ({ metadata }) => {
         )}
         {isLoading && <div>Loading ...</div>}
         <div className="px-4 pb-4">
-          <Button fill intent={Intent.PRIMARY} text="Deposit" />
+          <Button
+            fill
+            loading={depositingNft}
+            intent={Intent.PRIMARY}
+            text="Deposit"
+            onClick={() => depositNft(wallet, metadata)}
+          />
         </div>
       </div>
     </Card>
@@ -177,6 +184,7 @@ const ViewNfts = () => {
     parsedProgramAccounts,
     gettingMetadataFromMint,
     metadataFromMint,
+    HmywQA8MbUcYTGGk6E8x6xBmRduvt3UV4HVyCAczimNb,
   } = useAtom(tokenState)
 
   useEffect(() => {
