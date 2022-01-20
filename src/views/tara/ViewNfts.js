@@ -184,7 +184,6 @@ const ViewNfts = () => {
     parsedProgramAccounts,
     gettingMetadataFromMint,
     metadataFromMint,
-    HmywQA8MbUcYTGGk6E8x6xBmRduvt3UV4HVyCAczimNb,
   } = useAtom(tokenState)
 
   useEffect(() => {
