@@ -1,8 +1,7 @@
-import { defAtom } from '@thi.ng/atom'
 import { Metadata } from '@metaplex-foundation/mpl-token-metadata'
 import { PublicKey } from '@solana/web3.js'
-
-import { publicKeys } from '../config'
+import { defAtom } from '@thi.ng/atom'
+import { programIds } from '../config'
 import { getConnection } from '../utils/solana'
 
 const state = defAtom({
@@ -15,7 +14,7 @@ const getParsedProgramAccounts = (wallet) => {
   const conn = getConnection()
   state.resetIn('gettingParsedProgramAccounts', true)
   conn
-    .getParsedProgramAccounts(new PublicKey(publicKeys.spl), {
+    .getParsedProgramAccounts(new PublicKey(programIds.spl), {
       filters: [
         {
           // why 165?
@@ -37,9 +36,10 @@ const getParsedProgramAccounts = (wallet) => {
         parsedProgramAccounts: pa,
       }))
     })
-    .catch((err) =>
-      state.resetIn('getParsedProgramAccountsError', err),
-    )
+    .catch((err) => {
+      console.error('getParsedProgramAccounts failed', err)
+      state.resetIn('getParsedProgramAccountsError', err)
+    })
     .finally(() => {
       state.resetIn('gettingParsedProgramAccounts', false)
     })
