@@ -93,7 +93,7 @@ const depositNft = async (wallet, metadata) => {
   // userNftKey is the wrapper account for the vault where the NFT is stored rn
   // bump is needed for validation
   const [userNftKey, userNftBump] = await findUserNftAddress(
-    updateAuthorityKey,
+    wallet.publicKey,
     mintKey,
   )
 
@@ -105,7 +105,7 @@ const depositNft = async (wallet, metadata) => {
   // vaultKey is the owner of the vaultAssociatedAccount
   const [vaultKey, vaultBump] = await findVaultAddress(
     universeKey,
-    userNftKey,
+    wallet.publicKey,
     mintKey,
   )
 
@@ -156,7 +156,7 @@ const depositNft = async (wallet, metadata) => {
         systemProgram: web3.SystemProgram.programId,
         rent: web3.SYSVAR_RENT_PUBKEY,
       },
-      signers: [],
+      signers: [wallet.payer],
     })
     .then(console.log)
     .catch((err) => {
